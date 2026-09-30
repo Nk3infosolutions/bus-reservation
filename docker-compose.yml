@@ -1,4 +1,3 @@
-version: '3.5'
 services:
   mysql:
     image: mysql:latest
@@ -7,7 +6,7 @@ services:
     volumes:
       - "./db:/var/lib/mysql"
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=brs
@@ -20,7 +19,7 @@ services:
     container_name: BRS-Service
     restart: on-failure
     ports:
-      - "8080:8080"
+      - "9090:8080"
     environment:
       - DB_PORT=3306
       - DB_NAME=brs

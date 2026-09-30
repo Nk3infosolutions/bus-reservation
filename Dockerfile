@@ -14,7 +14,7 @@ COPY ./src ./src
 RUN mvn package -DskipTests
 
 # our final base image
-FROM openjdk:8-jre-alpine
+FROM eclipse-temurin:8-jre
 
 # set deployment directory
 WORKDIR /my-project
