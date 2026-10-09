@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: DOCKERHUB_USER/bus-reservation:1.0
+          image: bus-reservation:1.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

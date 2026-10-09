@@ -8,16 +8,21 @@ These manifests deploy the application and a single MySQL instance. MySQL data i
 - Docker and access to a container registry the cluster can pull from.
 - A cluster that provides external load balancers to assign a public URL/IP. Local clusters may require a tunnel or port forwarding.
 
-## Build and publish the application image
+## Build the application image
 
-From the repository root, replace `DOCKERHUB_USER` with your registry username and run:
+From the repository root:
 
 ```powershell
-docker build -t DOCKERHUB_USER/bus-reservation:1.0 .
-docker push DOCKERHUB_USER/bus-reservation:1.0
+docker build -t bus-reservation:1.0 .
 ```
 
-The same image name must be set in `k8s/app.yaml`. For a private registry, configure an image pull secret on the Kubernetes cluster.
+For Minikube, load the image into the cluster before applying the manifests:
+
+```powershell
+minikube image load bus-reservation:1.0
+```
+
+For a remote cluster, push the image to a registry the cluster can access and change the image in `k8s/app.yaml` to that registry path. For a private registry, configure an image pull secret on the cluster.
 
 ## Create database credentials
 
