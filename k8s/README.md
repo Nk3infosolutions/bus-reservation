@@ -49,6 +49,14 @@ kubectl get services bus-reservation --watch
 
 Wait until `EXTERNAL-IP` shows an address or hostname instead of `<pending>`. Open `http://<EXTERNAL-IP>/`; Swagger UI is at `http://<EXTERNAL-IP>/swagger-ui/index.html`.
 
+For Minikube, the `LoadBalancer` external IP remains `<pending>`. Run the following in a separate terminal and keep it running; it opens a local tunnel and prints the app URL:
+
+```powershell
+minikube service bus-reservation --url
+```
+
+Open the printed URL; Swagger UI is at the same URL followed by `/swagger-ui/index.html`.
+
 To remove the application and database resources:
 
 ```powershell
