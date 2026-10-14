@@ -19,7 +19,7 @@ services:
     container_name: BRS-Service
     restart: on-failure
     ports:
-      - "9090:8080"
+      - "9090:8081"
     environment:
       - DB_PORT=3306
       - DB_NAME=brs
