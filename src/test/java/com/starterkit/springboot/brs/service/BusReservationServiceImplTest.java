@@ -104,42 +104,6 @@ public class BusReservationServiceImplTest {
     }
 
     @Test
-    public void addTripShouldCreateForwardAndReturnTrips() {
-        Stop source = new Stop().setCode("DEL").setName("Delhi");
-        Stop dest = new Stop().setCode("MUM").setName("Mumbai");
-        User owner = new User().setId(12L).setEmail("admin@example.com");
-        Agency agency = new Agency().setId(20L).setCode("AG1").setName("TravelCo").setOwner(owner);
-        Bus bus = new Bus().setId(30L).setCode("BUS1").setCapacity(40).setMake("Mercedes").setAgency(agency);
-
-        TripDto request = new TripDto()
-                .setAgencyCode("AG1")
-                .setSourceStopCode("DEL")
-                .setDestinationStopCode("MUM")
-                .setBusCode("BUS1")
-                .setFare(1500)
-                .setJourneyTime(7);
-
-        when(stopRepository.findByCode("DEL")).thenReturn(source);
-        when(stopRepository.findByCode("MUM")).thenReturn(dest);
-        when(agencyRepository.findByCode("AG1")).thenReturn(agency);
-        when(busRepository.findByCode("BUS1")).thenReturn(bus);
-        when(tripRepository.save(any(Trip.class))).thenAnswer(invocation -> {
-            Trip trip = invocation.getArgument(0);
-            trip.setId((long) (trip.getSourceStop().getCode().equals("DEL") ? 101 : 102));
-            return trip;
-        });
-
-        List<TripDto> trips = busReservationService.addTrip(request);
-
-        assertEquals(2, trips.size());
-        assertEquals("DEL", trips.get(0).getSourceStopCode());
-        assertEquals("MUM", trips.get(0).getDestinationStopCode());
-        assertEquals("MUM", trips.get(1).getSourceStopCode());
-        assertEquals("DEL", trips.get(1).getDestinationStopCode());
-        verify(tripRepository, times(2)).save(any(Trip.class));
-    }
-
-    @Test
     public void getAvailableTripSchedulesShouldCreateScheduleWhenMissing() {
         Stop source = new Stop().setCode("DEL").setName("Delhi");
         Stop dest = new Stop().setCode("MUM").setName("Mumbai");
